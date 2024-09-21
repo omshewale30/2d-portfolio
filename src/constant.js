@@ -1,4 +1,4 @@
-export const scale_factor = 4;
+export const scale_factor = 3;
 
 export const dialogueData = {
     pc: `This is my macbook. I work mostly in on AI/ML related projects these days.

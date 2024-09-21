@@ -16,7 +16,7 @@ k.loadSprite("spritesheet", "spritesheet.png", {
 });
 
 k.loadSprite("map", "map.png");
-k.setBackground(k.Color.fromHex("#311047"));
+k.setBackground(k.Color.fromHex("#654520"));
 
 k.scene("main", async () => {
     const mapData = await (await fetch("map.json")).json()
@@ -112,6 +112,10 @@ k.scene("main", async () => {
             if (player.curAnim()!=="walk-side") player.play("walk-side");
             player.direction='left';
             return;
+        }
+        else {
+            if (player.curAnim() !== "walk-up") player.play("walk-up");
+            player.direction = "up";
         }
     });
 
