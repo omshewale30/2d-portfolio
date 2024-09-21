@@ -13,4 +13,5 @@ export const dialogueData = {
     projects: `I have a diverse array of projects under my belt as I like to try new frameworks and languages. Here is my <a href="https://github.com/omshewale30" target="_blank">Github</a>`,
     library: `There are a lot of self-improvement books on my shelves. One of my heroes is David Goggins. His book "Can't Hurt Me" is a must-read for anyone who wants to push their limits.That is the first book I read from end to end.`,
     exit: `If you want to exit Om's portfolio, just close the tab.`,
+    dumbbell: `I like to workout. I've been doing it for 4 years now. Legday is my favotite day. I cannot go a day without working out. It's my stress buster.`,
 };
