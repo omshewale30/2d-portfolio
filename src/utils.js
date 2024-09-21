@@ -5,30 +5,30 @@ export function displayDialog(text, onDisplayEnd) {
     let index = 0;
     let currentText = "";
     const intervalRef = setInterval(() => {
-        if (index < text.length) {
+        if (index < text.length) { // add the next character to the current text
             currentText += text[index];
-            dialogText.innerHTML = currentText;
+            dialogText.innerHTML = currentText; // set the dialog text
             index++;
             return;
         }
-        clearInterval(intervalRef);
+        clearInterval(intervalRef);  // clear the interval
     }, 1);
 
     //logic for onClose button
-    const closeBtn = document.getElementById("close");
-    function onCloseBtn() {
-        onDisplayEnd();
-        dialogUI.style.display = "none";
-        dialogText.innerHTML = "";
+    const closeBtn = document.getElementById("close"); // get the close button
+    function onCloseBtn() { // function to close the dialog
+        onDisplayEnd();  // call the onDisplayEnd function
+        dialogUI.style.display = "none"; // hide the dialog
+        dialogText.innerHTML = ""; // clear the dialog text
         clearInterval(intervalRef);
-        closeBtn.removeEventListener("click", onCloseBtn);
+        closeBtn.removeEventListener("click", onCloseBtn); // remove the event listener
     }
-    closeBtn.addEventListener("click", onCloseBtn);
+    closeBtn.addEventListener("click", onCloseBtn); // add an event listener to the close button
 
 
-    addEventListener("keypress", (key) => {
+    addEventListener("keypress", (key) => { // add an event listener for the enter key
         if (key.code === "Enter") {
-            closeBtn.click();
+            closeBtn.click(); // simulate a click on the close button
         }
     });
 
