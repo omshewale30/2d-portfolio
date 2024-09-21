@@ -63,27 +63,28 @@
       margin-top: 1rem;
     }
 
-    .note {
-      position: absolute;
+
+    .intro{
+      position:fixed;
       left: 5%;
-      top: 1vh;
       display: flex;
       flex-direction: column;
       color: rgb(238, 238, 238);
     }
-    h2.note{
-      top: 1vh;
+    .h{
+      font-size: 3rem;
+    }
 
-    }
-    p.note{
-      padding-top: 1rem;
-        top: 5vh;
-    }
+
+
     </style>
+
     <div id="app">
       <div>
-          <h2 class="note"> Welcome to Om's portfolio, I am glad you're here</h2>
-          <p class="note">Tap/Click around to move </p>
+        <div class="intro">
+          <p class="h"> Welcome to Om's portfolio, I am glad you're here</p>
+          <p>Tap/Click around to move </p>
+        </div>
 
         <div id="textbox-container" style="display: none">
           <div id="textbox">

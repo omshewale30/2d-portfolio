@@ -18,6 +18,8 @@ k.loadSprite("spritesheet", "spritesheet.png", {
 k.loadSprite("map", "map.png");
 k.setBackground(k.Color.fromHex("#654520"));
 
+k.loadSound("bg", "Blues.mp3");
+
 k.scene("main", async () => {
     const mapData = await (await fetch("map.json")).json() // load the map data
     const layers = mapData.layers; // get the layers from the map data
@@ -26,6 +28,14 @@ k.scene("main", async () => {
         k.pos(0),
         k.scale(scale_factor),
     ])
+    const music = k.play("bg", {
+        volume: 0.8,
+        loop: true
+    })
+    music.play();
+
+
+
 
     const player = k.make([   // create the player
         k.sprite("spritesheet", {anim: "idle-down"}), // set the sprite to the idle-down animation
