@@ -1,5 +1,5 @@
 export default ({
-    base: "/2d-portfolio",
+    base: "/2d-portfolio/",
     build:{
         minify:"terser",
     }
