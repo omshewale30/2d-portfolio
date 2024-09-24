@@ -111,6 +111,7 @@ k.scene("main", async () => {
             player.play("walk-down");
             player.direction = "down";
             return;
+
         }
         if (Math.abs(mouseAngle) > upperBound) {
             player.flipX=false;
