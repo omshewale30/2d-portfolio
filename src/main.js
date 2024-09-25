@@ -25,14 +25,14 @@ k.scene("main", async () => {
     const layers = mapData.layers; // get the layers from the map data
     const map = k.add([ // add the map to the scene
         k.sprite("map"),
-        k.pos(0),
-        k.scale(scale_factor),
+        k.pos(0), // set the position of the map
+        k.scale(scale_factor), // set the scale of the map
     ])
-    const music = k.play("bg", {
+    const music = k.play("bg", { // play the background music
         volume: 0.8,
         loop: true
     })
-    music.play();
+    music.play(); // play the music
 
 
 
@@ -45,13 +45,13 @@ k.scene("main", async () => {
         k.body(), // add a body component to the player
         k.anchor("center"), // set the anchor of the player to the center
         k.pos(),
-        k.scale(scale_factor),
+        k.scale(scale_factor), //`set the scale of the player
         {
            speed: 150,
            direction: "down",
            isInDialog: false,
         },
-        "player",
+        "player", // add a tag to the player
     ]);
 
     for (const layer of layers) {  // loop through the layers
@@ -68,34 +68,66 @@ k.scene("main", async () => {
                 if (boundary.name){ // if the boundary has a name
                     player.onCollide(boundary.name,() =>{ // add a collision event to the player
                         player.isInDialogue = true; // set the player's isInDialogue property to true
-                        displayDialog(dialogueData[boundary.name], ()=> player.isInDialogue = false) // display the dialogue
+                        displayDialog(dialogueData[boundary.name], ()=> player.isInDialogue = false) // display the dialogue and set the isInDialogue property to false when the dialogue ends
                     });
                 }
             }
             continue;
 
         }
-        if (layer.name === "spawnpoints") {
+        if (layer.name === "spawnpoints") { // if the layer is the spawnpoints layer
             for (const entity of layer.objects) {
                 if (entity.name === "player") {
-                    player.pos = k.vec2(
+                    player.pos = k.vec2( // set the position of the player
                         ( map.pos.x+ entity.x) *scale_factor,
                         ( map.pos.y+ entity.y) *scale_factor
                     );
-                    k.add(player);
-                    continue;
+                    k.add(player); // add the player to the scene
+                    continue; // continue to the next iteration of the loop
                 }
             }
         }
     }
 
-    setCamScale(k);
+    setCamScale(k); // set the camera scale
     k.onResize(() => { // add an event listener for the resize event
         setCamScale(k);
     });
 
     k.onUpdate(() => { // add an update event
-        k.camPos(player.pos.x, player.pos.y+100);
+        k.camPos(player.pos.x, player.pos.y+100); // set the camera position
+    });
+
+    k.onKeyDown((key) => { // add an event listener for the key down event
+        if (player.isInDialogue) return; // if the player is in dialogue, return
+
+        if(key==="left"){
+            player.flipX =true;
+            if (player.curAnim()!=="walk-side") player.play("walk-side");
+            player.direction='left';
+            player.moveTo(player.pos.add(k.vec2(-player.speed,0)),player.speed);
+            return;
+        }
+        if(key==="right"){
+            player.flipX=false;
+            if (player.curAnim()!=="walk-side") player.play("walk-side");
+            player.direction = "right";
+            player.moveTo(player.pos.add(k.vec2(player.speed,0)),player.speed);
+
+        }
+        if(key==="up"){
+            if (player.curAnim()!=="walk-up") player.play("walk-up");
+            player.moveTo(player.pos.add(k.vec2(0,-player.speed)),player.speed);
+            player.direction = "up";
+            return;
+        }
+        if(key==="down"){
+            if (player.curAnim()!=="walk-down") player.play("walk-down");
+            player.moveTo(player.pos.add(k.vec2(0,player.speed)),player.speed);
+            player.direction = "down";
+            return
+        }
+
     });
 
     k.onMouseDown((mouseBtn) => {  // add an event listener for the mouse down event
@@ -130,6 +162,12 @@ k.scene("main", async () => {
             player.direction = "up";
         }
     });
+    k.onKeyRelease(()=>{
+        if (player.direction === "down") player.play("idle-down");
+        if(player.direction==="up") player.play("idle-up");
+        if (player.direction === "right") player.play("idle-side");
+        if (player.direction === "left") player.play("idle-side");
+    })
 
     // add an event listener for the mouse release event
     k.onMouseRelease(() => {

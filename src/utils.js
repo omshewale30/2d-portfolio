@@ -35,11 +35,11 @@ export function displayDialog(text, onDisplayEnd) {
 }
 export function setCamScale(k){    // set the camera scale based on the aspect ratio of the screen
     const resize_factor = k.width()/k.height();
-    if (resize_factor < 1){
-        k.camScale(k.vec2(1));
+    if (resize_factor < 1){  // if the aspect ratio is less than 1
+        k.camScale(k.vec2(1)); // set the camera scale to 1
         return;
     }
-    k.camScale(k.vec2(1.5));
+    k.camScale(k.vec2(1.5)); // set the camera scale to 1.5
 }
 
 
